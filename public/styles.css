@@ -1,0 +1,62 @@
+/* Styles */
+body {
+    background-color: #333333;
+    color: #FFFFFF;
+}
+
+a, a:hover, a:active {
+    color: #FFFFFF;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container-fluid .main-header,
+.container-fluid .main-footer {
+    flex-shrink: 0;
+}
+
+.container-fluid .main-header .header-logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container-fluid .main-section {
+    flex: 1;
+}
+
+.main-header,
+.main-section,
+.main-footer {
+    padding: 30px;
+    text-align: center;
+}
+
+.main-section .alert.alert-info {
+    text-align: left;
+}
+
+.main-footer .status-dot {
+    background: #a0d468;
+    border-radius: 100%;
+    display: inline-block;
+    margin-left: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-weight: bold;
+    color: #333;
+    text-shadow: none;
+    background-color: #fff;
+    border: 1px solid #fff;
+}

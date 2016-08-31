@@ -1,0 +1,25 @@
+{
+  "name": "Voucherify Node.js Example",
+  "description": "A sample Node.js implementation of Voucherify SDK",
+  "repository": "https://github.com/voucherifyio/voucherify-redeem-app",
+  "logo": "https://raw.githubusercontent.com/voucherifyio/voucherify-redeem-app/master/public/voucherify.png",
+  "keywords": ["voucherify", "node", "heroku", "express", "voucher", "coupon"],
+  "env": {
+    "APPLICATION_ID": {
+      "description": "Voucherify Application ID",
+      "value": ""
+    },
+    "APPLICATION_SECRET_KEY": {
+      "description": "Voucherify Application Secret Key",
+      "value": ""
+    },
+    "CLIENT_APPLICATION_ID": {
+      "description": "Voucherify Client Application ID",
+      "value": ""
+    },
+    "CLIENT_PUBLIC_KEY": {
+      "description": "Voucherify Client Public Key",
+      "value": ""
+    }
+  }
+}

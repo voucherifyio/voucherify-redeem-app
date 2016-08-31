@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/voucherify.js/1.4.5/voucherify.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>Voucherify Reedem App</title>
+</head>
+<body>
+    <div id="voucherify" class="container-fluid">
+        <header class="main-header">
+            <h1 class="header-logo">
+                <a href="http://voucherify.io" title="Voucherify - voucher infrastructure through API">
+                    <img src="/logo-v.png" alt="Voucherify">
+                </a>
+            </h1>
+        </header>
+
+        <section class="main-section">
+            <div class="row">
+                <h2 class="section-header col-sm-12">Redeem voucher</h2>
+            </div>
+            <div class="row">
+                <div id="alert_box" class="result-alert alert" role="alert"></div>
+            </div>
+            <div class="row">
+                <form id="redeem_form" class="form-horizontal col-sm-8 col-sm-offset-2">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control input-lg" id="customer_email" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-lg" id="customer_name" placeholder="Name">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control input-lg" id="customer_surname" placeholder="Surname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control input-lg" id="voucher_code" placeholder="Voucher Code">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <input type="text" class="form-control input-lg" id="base_price" placeholder="Base price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="text" class="btn btn-default btn-lg" id="submit_btn">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <footer class="main-footer">
+            <ul class="footer-list list-inline">
+                <li>
+                    <a href="http://community.voucherify.io/" target="_blank">slack</a>
+                    <img style="height: 2em" src="/slack_icon.png" alt="Slack">
+                </li>
+                <li>
+                    <a href="http://status.voucherify.io" target="_blank">status</a>
+                    <span class="status-dot"></span>
+                </li>
+                <li>
+                    <a href="https://github.com/voucherifyio" target="_blank">github</a>
+                    <img style="margin-left: 0.5rem; height: 1em" src="/github_icon.png" alt="Github">
+                </li>
+            </ul>
+        </footer>
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.2/jquery.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//cdn.jsdelivr.net/voucherify.js/1.5/voucherify.min.js"></script>
+    <script>
+        (function (window) {
+            'use strict'
+
+            window.clientSideKeys = {{ clientSideKeys | safe | json }}
+
+        })(window)
+    </script>
+    <script src="/scripts.js"></script>
+</body>
+</html>
