@@ -1,6 +1,6 @@
 {
-  "name": "Voucherify Node.js Example",
-  "description": "A sample Node.js implementation of Voucherify SDK",
+  "name": "Voucherify Redeem App",
+  "description": "A sample Node.js app to redeem vouchers with customer data",
   "repository": "https://github.com/voucherifyio/voucherify-redeem-app",
   "logo": "https://raw.githubusercontent.com/voucherifyio/voucherify-redeem-app/master/public/voucherify.png",
   "keywords": ["voucherify", "node", "heroku", "express", "voucher", "coupon"],
