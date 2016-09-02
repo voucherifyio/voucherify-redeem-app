@@ -28,6 +28,11 @@ a {
     margin-bottom: 10px;
 }
 
+.container-fluid .main-header .header-logo img {
+    max-width: 300px;
+    width: 100%;
+}
+
 .container-fluid .main-section {
     flex: 1;
 }

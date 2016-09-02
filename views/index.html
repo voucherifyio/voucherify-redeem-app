@@ -13,8 +13,8 @@
 </head>
 <body>
     <div id="voucherify" class="container-fluid">
-        <header class="main-header">
-            <h1 class="header-logo">
+        <header class="main-header row">
+            <h1 class="header-logo col-sm-12">
                 <a href="http://voucherify.io" title="Voucherify - voucher infrastructure through API">
                     <img src="/logo-v.png" alt="Voucherify">
                 </a>
@@ -27,6 +27,8 @@
             </div>
             <div class="row">
                 <div id="alert_box" class="result-alert alert" role="alert"></div>
+                <br>
+                <button id="back_to_form_btn" class="btn btn-default">Back to form</button>
             </div>
             <div class="row">
                 <form id="redeem_form" class="form-horizontal col-sm-8 col-sm-offset-2">
@@ -36,10 +38,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12 col-md-6">
                             <input type="text" class="form-control input-lg" id="customer_name" placeholder="Name">
                         </div>
-                        <div class="col-sm-6">
+                        <div class="clearfix visible-xs-block" style="margin: 7px 0"></div>
+                        <div class="clearfix visible-sm-block" style="margin: 14px 0"></div>
+                        <div class="col-sm-12 col-md-6">
                             <input type="text" class="form-control input-lg" id="customer_surname" placeholder="Surname">
                         </div>
                     </div>

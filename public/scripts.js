@@ -12,6 +12,7 @@
     )
 
     var $redeemForm = $('#redeem_form')
+    var $backToFormBtn = $('#back_to_form_btn')
     var $submitBtn = $('#submit_btn')
     var $customerEmail = $('#customer_email')
     var $customerName = $('#customer_name')
@@ -26,12 +27,11 @@
     }
 
     function validateText(text) {
-        var re = /^[a-zA-Z\s]{2,}$/
-        return re.test(text)
+        return text !== ""
     }
 
     function validateAmount(amount) {
-        var re = /^[0-9]+$/
+        var re = /^[0-9.,]+$/
         return re.test(amount)
     }
 
@@ -93,33 +93,79 @@
             AMOUNT: 'amount_off',
             UNIT: 'unit_off'
         }
+
         var voucher_type = result.voucher.gift && 'Gift Voucher' || result.voucher.discount && 'Discount Voucher'
         var voucher_discount_value = result.voucher.discount && result.voucher.discount[discount_type[result.voucher.discount.type]] || null
         var voucher_gift_amount = result.voucher.gift && (result.voucher.gift.amount / 100) || null
         var voucher_amount_redeemed = result.voucher.redemption && (result.voucher.redemption.redeemed_amount / 100)
-        var base_price = parseInt($basePrice.val(), 10)
+        var base_price = +($basePrice.val())
 
         var html_body = $('<div>')
             .append('<h4>Voucher redeemed successfully</h4>')
             .append('<p>Voucher Type: <b>' + voucher_type + '</b></p>')
             .append(function () {
                 if (voucher_gift_amount) {
-                    return '<p>Gift amount: <b>' + (voucher_gift_amount - (voucher_amount_redeemed - base_price)).toFixed(2) + '</b><small><i>/' + voucher_gift_amount.toFixed(2) + '</i></small></p>'
+                    var gift_amount_left = (voucher_gift_amount - (voucher_amount_redeemed - base_price));
+                    return '<p>Gift amount: <b>' + gift_amount_left.toFixed(2) + '</b><small><i>/' + voucher_gift_amount.toFixed(2) + '</i></small></p>'
                 }
 
                 if (voucher_discount_value) {
-                    return '<p>Voucher Value: <b>' + voucher_discount_value.toFixed(2) + '</b></p>'
+                    var html = []
+
+                    var discount_value
+
+                    if (result.voucher.discount.type === 'UNIT') {
+                        discount_value = voucher_discount_value
+                    } else if (result.voucher.discount.type === 'PERCENT') {
+                        discount_value = voucher_discount_value + '%'
+                    } else if (result.voucher.discount.type === 'AMOUNT') {
+                        discount_value = (voucher_discount_value / 100).toFixed(2)
+                    }
+
+                    html.push('<p>Discount type: <b>' + result.voucher.discount.type + '</b></p>')
+                    html.push('<p>Discount value: <b>' + discount_value + '</b></p>')
+
+                    return html.join('\n')
                 }
             })
             .append('<br>')
-            .append('<p>Base price: <b>' + base_price.toFixed(2) + '</b></p>')
             .append(function () {
+                var html = []
+
                 if (voucher_gift_amount) {
-                    return '<p>Amount left: <b>' + (voucher_gift_amount - voucher_amount_redeemed).toFixed(2) + '</b></p>'
+                    html.push('<p>Base price: <b>' + base_price.toFixed(2) + '</b></p>')
+                    html.push('<p>Amount left: <b>' + (voucher_gift_amount - voucher_amount_redeemed).toFixed(2) + '</b></p>')
+
+                    return html.join('\n')
                 }
 
                 if (voucher_discount_value) {
-                    return '<p>Price after redeem: <b>' + (base_price - voucher_discount_value).toFixed(2) + '</b></p>'
+                    var base_value_label
+                    var after_value_label
+                    var base_amount
+                    var after_amount
+
+                    if (result.voucher.discount.type === 'UNIT') {
+                        base_value_label = 'Base units: '
+                        after_value_label = 'Units after redeem: '
+                        base_amount = base_price
+                        after_amount = base_price - voucher_discount_value
+                    } else if (result.voucher.discount.type === 'PERCENT') {
+                        base_value_label = 'Base price: '
+                        after_value_label = 'Price after redeem: '
+                        base_amount = base_price.toFixed(2)
+                        after_amount = base_price * ((100 - voucher_discount_value) / 100)
+                    } else if (result.voucher.discount.type === 'AMOUNT') {
+                        base_value_label = 'Base price: '
+                        after_value_label = 'Price after redeem: '
+                        base_amount = base_price.toFixed(2)
+                        after_amount = (base_price - (voucher_discount_value / 100)).toFixed(2)
+                    }
+
+                    html.push('<p>' + base_value_label + '<b>' + base_amount + '</b></p>')
+                    html.push('<p>' + after_value_label + '<b>' + after_amount + '</b></p>')
+
+                    return html.join('\n')
                 }
             })
 
@@ -127,9 +173,21 @@
             .toggleClass('alert-info', true)
             .html(html_body)
             .show(ANIMATION_SPEED)
+
+        $backToFormBtn.show(ANIMATION_SPEED)
+    }
+
+    function hideResult(callback) {
+        $alertBox
+            .toggleClass('alert-info', false)
+            .html("")
+            .hide(ANIMATION_SPEED, callback)
+
+        $backToFormBtn.hide(ANIMATION_SPEED)
     }
 
     $alertBox.hide()
+    $backToFormBtn.hide()
 
     $submitBtn.on('click', function (e) {
         e.preventDefault()
@@ -171,6 +229,20 @@
             showError('Unexpected error occurred during the validation of the voucher')
         }).always(function () {
             toggleFields(false)
+        })
+    })
+
+    $backToFormBtn.on('click', function (e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        hideResult(function () {
+            $customerEmail.val('');
+            $customerName.val('');
+            $customerSurname.val('');
+            $voucherCode.val('');
+            $basePrice.val('');
+            $redeemForm.show(ANIMATION_SPEED)
         })
     })
 
