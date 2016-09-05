@@ -2,11 +2,11 @@
 
 ## Overview
 
-This sample application aims to help with redeem a voucher given by customer. You can try out this app by clicking Deploy to Heroku button.
+This sample application enables you to redeem vouchers given by customer with a simple web form. See [**Live Demo**](https://redeem-test-app.herokuapp.com)
 
 ## Setup
 
-It is really simple to setup this app. Only what you need to do is follow the steps listed below:
+Follow the steps listed below to get the application up and running in minutes with Heroku button.
 
 1. You need a set of *Application Keys* and *Client-side Keys* to connect with **Voucherify Platform**. Visit App.
 
