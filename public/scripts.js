@@ -112,15 +112,7 @@
                 if (voucher_discount_value) {
                     var html = []
 
-                    var discount_value
-
-                    if (result.voucher.discount.type === 'UNIT') {
-                        discount_value = voucher_discount_value
-                    } else if (result.voucher.discount.type === 'PERCENT') {
-                        discount_value = voucher_discount_value + '%'
-                    } else if (result.voucher.discount.type === 'AMOUNT') {
-                        discount_value = (voucher_discount_value / 100).toFixed(2)
-                    }
+                    var discount_value = Voucherify.utils.calculateDiscount(base_price, result.voucher)
 
                     html.push('<p>Discount type: <b>' + result.voucher.discount.type + '</b></p>')
                     html.push('<p>Discount value: <b>' + discount_value + '</b></p>')
@@ -142,28 +134,19 @@
                 if (voucher_discount_value) {
                     var base_value_label
                     var after_value_label
-                    var base_amount
-                    var after_amount
 
                     if (result.voucher.discount.type === 'UNIT') {
                         base_value_label = 'Base units: '
-                        after_value_label = 'Units after redeem: '
-                        base_amount = base_price
-                        after_amount = base_price - voucher_discount_value
-                    } else if (result.voucher.discount.type === 'PERCENT') {
+                        after_value_label = 'Discounted units: '
+                    } else if (['PERCENT', 'AMOUNT'].indexOf(result.voucher.discount.type) > -1) {
                         base_value_label = 'Base price: '
-                        after_value_label = 'Price after redeem: '
-                        base_amount = base_price.toFixed(2)
-                        after_amount = base_price * ((100 - voucher_discount_value) / 100)
-                    } else if (result.voucher.discount.type === 'AMOUNT') {
-                        base_value_label = 'Base price: '
-                        after_value_label = 'Price after redeem: '
-                        base_amount = base_price.toFixed(2)
-                        after_amount = (base_price - (voucher_discount_value / 100)).toFixed(2)
+                        after_value_label = 'Discounted price: '
                     }
 
-                    html.push('<p>' + base_value_label + '<b>' + base_amount + '</b></p>')
-                    html.push('<p>' + after_value_label + '<b>' + after_amount + '</b></p>')
+                    var discounted_price = Voucherify.utils.calculatePrice(base_price, result.voucher)
+
+                    html.push('<p>' + base_value_label + '<b>' + base_price + '</b></p>')
+                    html.push('<p>' + after_value_label + '<b>' + discounted_price + '</b></p>')
 
                     return html.join('\n')
                 }
